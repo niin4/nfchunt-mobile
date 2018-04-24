@@ -6,13 +6,14 @@ import {
   View,
   TextInput
 } from 'react-native';
-import Button from '../components/Button';
+
 import GLOBALS from '../Globals';
-const DeviceInfo = require('react-native-deviceinfo');
+import { setGame } from '../actions';
+import { connect } from 'react-redux';
 
+import Button from '../components/Button';
 
-type Props = {};
-export default class AddGame extends Component<Props> {
+class AddGameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,10 +46,7 @@ export default class AddGame extends Component<Props> {
       console.error(error);
     });;
   }
-  componentDidMount = () => {
-    console.log("App Instance ID", DeviceInfo.getInstanceID()); 
-    this.setState({user: DeviceInfo.getInstanceID()})
-  }
+
   render() {
     return (
       <View>
@@ -76,3 +74,15 @@ export default class AddGame extends Component<Props> {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.gameState.activeGame
+});
+
+const mapDispatchToProps = {
+  setGame
+};
+
+const AddGame = connect(mapStateToProps, mapDispatchToProps)(AddGameView);
+
+export default AddGame;

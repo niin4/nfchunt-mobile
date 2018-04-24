@@ -5,19 +5,22 @@ import {
   Text,
   View
 } from 'react-native';
+import { connect } from 'react-redux';
+import { setGame } from '../actions';
+
 import Button from '../components/Button';
 
 const buttonPressed = (screen) => {
   this.props.navigation.navigate(screen)
 };
 
-type Props = {};
-export default class Home extends Component<Props> {
+class HomeView extends Component {
   render() {
+    const user = this.props.user;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          NFC Hunt
+          NFC Hunt, user: {user}
         </Text>
         <Button label='Create game' onPress={() => this.props.navigation.navigate('AddGame')} />
         <Button label='View games' onPress={() => buttonPressed('ViewGames')} />
@@ -45,3 +48,15 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+const mapStateToProps = state => ({
+  user: state.gameState.user
+});
+
+const mapDispatchToProps = {
+  setGame
+};
+
+const Home = connect(mapStateToProps, mapDispatchToProps)(HomeView);
+
+export default Home;
