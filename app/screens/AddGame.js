@@ -52,7 +52,6 @@ export default class AddGame extends Component<Props> {
   render() {
     return (
       <View>
-        <Text>{this.state.user}</Text>
         <Text>Add new game</Text>
         <Text>Game name:</Text>
         <TextInput onChangeText={(name) => this.setState({ name })}

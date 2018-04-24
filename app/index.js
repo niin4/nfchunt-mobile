@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StackNavigator } from 'react-navigation'; 
+import { addNavigationHelpers, StackNavigator } from 'react-navigation'; 
 import { Home, AddGame } from './screens';
 
 const RootStack = StackNavigator(
