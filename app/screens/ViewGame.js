@@ -13,7 +13,12 @@ import { connect } from 'react-redux';
 
 import Button from '../components/Button';
 
+// Styles
+import navStyle from '../styles/navigation';
+
 class ViewGameView extends Component {
+  static navigationOptions = {...navStyle, title: 'Game details'};
+
   constructor(props) {
     super(props);
     this.state = {

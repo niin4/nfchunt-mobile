@@ -14,6 +14,9 @@ import { connect } from 'react-redux';
 
 import Button from '../components/Button';
 
+// styles
+import navStyle from '../styles/navigation';
+
 const GameItem = (props) => (
   <View>
     <Text onPress={() => props.onClickEv(props.game)}>{props.game.g_name}</Text>
@@ -29,6 +32,8 @@ const GameList = (props) => (
 )
 
 class ViewGamesView extends Component {
+  static navigationOptions = {...navStyle, title: 'All games'};
+
   constructor(props) {
     super(props);
     this.state = {

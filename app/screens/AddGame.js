@@ -14,7 +14,12 @@ import { bindActionCreators } from 'redux';
 
 import Button from '../components/Button';
 
+// Styles
+import navStyle from '../styles/navigation';
+
 class AddGameView extends Component {
+  static navigationOptions = {...navStyle, title: 'Create new game'};
+
   constructor(props, context) {
     super(props);
     this.state = {
