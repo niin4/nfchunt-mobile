@@ -16,6 +16,11 @@ export default StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
+  boxCenter: {
+    padding: 20,
+    backgroundColor: '#fff',
+    alignItems: 'center'
+  },
   h1: {
     color: '#fff',
     fontWeight: 'bold',

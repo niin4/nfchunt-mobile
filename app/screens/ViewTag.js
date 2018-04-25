@@ -42,7 +42,7 @@ class ViewTagView extends Component {
             <Text style={styles.bold}>Hint:</Text>
             <Text>{tag.t_hint}</Text>
             <Button label='Edit' />
-            <Button label='Register'/>
+            <Button label='Register' onPress={() => this.props.navigation.navigate('RegisterTag')}/>
           </View>
         </View>
       </ImageBackground>

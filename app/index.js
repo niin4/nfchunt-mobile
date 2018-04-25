@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation'; 
-import { Home, AddGame,  CreateTag, ViewGame, ViewGames, Tags, ViewTag } from './screens';
+import { Home, AddGame,  CreateTag, ViewGame, ViewGames, RegisterTag, Tags, ViewTag } from './screens';
 import { Provider, connect } from 'react-redux'
 import store from './store';
 
@@ -15,6 +15,9 @@ const RootStack = StackNavigator(
     Home: {
       screen: Home,
     }, 
+    RegisterTag: {
+      screen: RegisterTag
+    },
     Tags: {
       screen: Tags
     },
