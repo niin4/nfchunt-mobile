@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation'; 
-import { Home, AddGame } from './screens';
+import { Home, AddGame, ViewGame, ViewGames } from './screens';
 import { Provider, connect } from 'react-redux'
 import store from './store';
 
@@ -12,6 +12,12 @@ const RootStack = StackNavigator(
     AddGame: {
       screen: AddGame,
     },
+    ViewGame: {
+      screen: ViewGame,
+    },
+    ViewGames: {
+      screen: ViewGames
+    }
   },
   {
     initialRouteName: 'Home',
@@ -20,7 +26,6 @@ const RootStack = StackNavigator(
 
 class App extends React.Component {
   render() {
-    const { navState, dispatch} = this.props;
     return (
       <Provider store={store}>
         <RootStack/>

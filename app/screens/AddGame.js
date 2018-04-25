@@ -10,17 +10,21 @@ import {
 import GLOBALS from '../Globals';
 import { setGame } from '../actions';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Button from '../components/Button';
 
 class AddGameView extends Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     this.state = {
-      user: '',
+      user: this.props.user,
       name: '',
       welcome: '',
-      completed: ''
+      completed: '',
+      activeGame: {
+        g_name: 'moi'
+      },
     }
   }
 
@@ -38,9 +42,11 @@ class AddGameView extends Component {
         completedtext: this.state.completed
       }),
     })
-    .then((response) => { response.json()})
+    .then((response) => { return response.json()})
     .then((data) => {
       console.log(data);
+      this.props.onGameChange(data);
+      this.props.navigation.navigate('ViewGame');
     })
     .catch((error) => {
       console.error(error);
@@ -50,7 +56,7 @@ class AddGameView extends Component {
   render() {
     return (
       <View>
-        <Text>Add new game</Text>
+        <Text>Add new game </Text>
         <Text>Game name:</Text>
         <TextInput onChangeText={(name) => this.setState({ name })}
           value={this.state.name} />
@@ -76,12 +82,14 @@ class AddGameView extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.gameState.activeGame
+  user: state.gameState.user,
+  state: state,
+  activeGame: state.gameState.activeGame
 });
 
-const mapDispatchToProps = {
-  setGame
-};
+const mapDispatchToProps = (dispatch) => ({
+  onGameChange: (game) => dispatch(setGame(game))
+});
 
 const AddGame = connect(mapStateToProps, mapDispatchToProps)(AddGameView);
 

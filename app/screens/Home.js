@@ -23,7 +23,7 @@ class HomeView extends Component {
           NFC Hunt, user: {user}
         </Text>
         <Button label='Create game' onPress={() => this.props.navigation.navigate('AddGame')} />
-        <Button label='View games' onPress={() => buttonPressed('ViewGames')} />
+        <Button label='View games' onPress={() => this.props.navigation.navigate('ViewGames')} />
         <Button label='Inspect tag' onPress={() => buttonPressed('InspectTag')} />
       </View>
     );
