@@ -10,11 +10,12 @@ import { connect } from 'react-redux';
 import { setGame } from '../actions';
 
 import Button from '../components/Button';
-const image = require('../assets/background.jpeg');
 import * as COMMON from '../styles/common';
 
 // Styles
 import navStyle from '../styles/navigation';
+import styles from '../styles/container';
+const image = require('../assets/background.jpeg');
 
 const buttonPressed = (screen) => {
   this.props.navigation.navigate(screen)
@@ -28,9 +29,9 @@ class HomeView extends Component {
     return (
       <ImageBackground
         source={image}
-        style={{ width: '100%', height: '100%' }}>
+        style={styles.background}>
         <View style={styles.container}>
-          <Text style={styles.welcome}>
+          <Text style={styles.h1}>
             NFC Hunt, user: {user}
           </Text>
           <Button label='Create game' onPress={() => this.props.navigation.navigate('AddGame')} />
@@ -41,24 +42,6 @@ class HomeView extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 const mapStateToProps = state => ({
   user: state.gameState.user

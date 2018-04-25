@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import GLOBALS from '../Globals';
-import { setGame } from '../actions';
+import { setTag } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -20,40 +20,36 @@ import navStyle from '../styles/navigation';
 import styles from '../styles/container';
 const image = require('../assets/background.jpeg');
 
-class AddGameView extends Component {
-  static navigationOptions = { ...navStyle, title: 'Create new game' };
+class CreateTagView extends Component {
+  static navigationOptions = { ...navStyle, title: 'Create new tag' };
 
   constructor(props, context) {
     super(props);
     this.state = {
-      user: this.props.user,
+      game: this.props.game,
       name: '',
-      welcome: '',
-      completed: '',
-      activeGame: {
-        g_name: 'moi'
-      },
+      hint: '',
     }
   }
 
-  createGameRequest = () => {
-    fetch(`${GLOBALS.BASE_URL}/games`, {
+  createTagRequest = () => {
+    fetch(`${GLOBALS.BASE_URL}/tags`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: this.state.user,
         name: this.state.name,
-        welcometext: this.state.welcome,
-        completedtext: this.state.completed
+        hint: this.state.hint,
+        game: this.state.game.g_id
       }),
     })
       .then((response) => { return response.json() })
       .then((data) => {
-        this.props.onGameChange(data);
-        this.props.navigation.navigate('ViewGame');
+        this.props.onTagChange(data);
+        this.setState({newtag: data});
+        this.props.navigation.navigate('ViewTag');
       })
       .catch((error) => {
         console.error(error);
@@ -67,25 +63,18 @@ class AddGameView extends Component {
         style={styles.background}>
         <View style={styles.container}>
           <View style={styles.box}>
-            <Text style={styles.h2}>Game name:</Text>
+            <Text style={styles.h2}>Tag name:</Text>
             <TextInput onChangeText={(name) => this.setState({ name })}
               value={this.state.name} />
 
-            <Text style={styles.h2}>Welcome text:</Text>
+            <Text style={styles.h2}>Hint:</Text>
             <TextInput
-              onChangeText={(welcome) => this.setState({ welcome })}
-              value={this.state.welcome}
+              onChangeText={(hint) => this.setState({ hint })}
+              value={this.state.hint}
               multiline={true}
               numberOfLines={4} />
 
-            <Text style={styles.h2}>Text for winner:</Text>
-            <TextInput
-              onChangeText={(completed) => this.setState({ completed })}
-              value={this.state.completed}
-              multiline={true}
-              numberOfLines={4} />
-
-            <Button label='Create game' onPress={this.createGameRequest} />
+            <Button label='Create tag' onPress={this.createTagRequest} />
           </View>
         </View>
       </ImageBackground>
@@ -94,14 +83,13 @@ class AddGameView extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.gameState.user,
-  activeGame: state.gameState.activeGame
+  game: state.gameState.activeGame
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGameChange: (game) => dispatch(setGame(game))
+  onTagChange: (tag) => dispatch(setTag(tag))
 });
 
-const AddGame = connect(mapStateToProps, mapDispatchToProps)(AddGameView);
+const CreateTag = connect(mapStateToProps, mapDispatchToProps)(CreateTagView);
 
-export default AddGame;
+export default CreateTag;

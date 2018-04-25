@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import GLOBALS from '../Globals';
-import { setGame } from '../actions';
+import { setTag } from '../actions';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button';
@@ -19,32 +19,30 @@ import navStyle from '../styles/navigation';
 import styles from '../styles/container';
 const image = require('../assets/background.jpeg');
 
-class ViewGameView extends Component {
-  static navigationOptions = { ...navStyle, title: 'Game details' };
+class ViewTagView extends Component {
+  static navigationOptions = { ...navStyle, title: 'Tag details' };
 
   constructor(props) {
     super(props);
     this.state = {
-      game: this.props.game,
+      tag: this.props.tag,
     }
   }
 
+  
   render() {
-    const game = this.state.game;
+    const tag = this.state.tag;
     return (
       <ImageBackground
         source={image}
         style={styles.background}>
         <View style={styles.container}>
           <View style={styles.box}>
-            <Text style={styles.h2}>{game.g_name}</Text>
-            <Text style={styles.bold}>Welcome text:</Text>
-            <Text>{game.g_welcometext}</Text>
-            <Text style={styles.bold}>Text for winner:</Text>
-            <Text>{game.g_completedtext}</Text>
+            <Text style={styles.h2}>{tag.t_name}</Text>
+            <Text style={styles.bold}>Hint:</Text>
+            <Text>{tag.t_hint}</Text>
             <Button label='Edit' />
-            <Button label='Tags' onPress={() => this.props.navigation.navigate('Tags')}/>
-            <Button label='Start game'/>
+            <Button label='Register'/>
           </View>
         </View>
       </ImageBackground>
@@ -53,13 +51,13 @@ class ViewGameView extends Component {
 }
 
 const mapStateToProps = state => ({
-  game: state.gameState.activeGame
+  tag: state.gameState.activeTag
 });
 
 const mapDispatchToProps = {
-  setGame
+  setTag
 };
 
-const ViewGame = connect(mapStateToProps, mapDispatchToProps)(ViewGameView);
+const ViewTag = connect(mapStateToProps, mapDispatchToProps)(ViewTagView);
 
-export default ViewGame;
+export default ViewTag;

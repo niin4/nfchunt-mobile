@@ -8,5 +8,8 @@ export default StyleSheet.create({
     color: '#fff',
     borderRadius: 5,
     padding: 15,
+    textAlign: 'center',
+    marginTop: 5,
+    marginBottom: 5,
   },
 });

@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
-import { addNavigationHelpers, StackNavigator } from 'react-navigation'; 
-import { Home, AddGame, ViewGame, ViewGames } from './screens';
+import { StackNavigator } from 'react-navigation'; 
+import { Home, AddGame,  CreateTag, ViewGame, ViewGames, Tags, ViewTag } from './screens';
 import { Provider, connect } from 'react-redux'
 import store from './store';
 
 const RootStack = StackNavigator(
   {
-    Home: {
-      screen: Home,
-    },
     AddGame: {
       screen: AddGame,
+    },
+    CreateTag: {
+      screen: CreateTag
+    },
+    Home: {
+      screen: Home,
+    }, 
+    Tags: {
+      screen: Tags
     },
     ViewGame: {
       screen: ViewGame,
     },
     ViewGames: {
       screen: ViewGames
+    },
+    ViewTag: {
+      screen: ViewTag
     }
   },
   {
