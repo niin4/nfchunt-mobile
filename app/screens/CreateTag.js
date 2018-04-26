@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage
 } from 'react-native';
 
 import GLOBALS from '../Globals';
@@ -31,11 +32,12 @@ class CreateTagView extends Component {
       hint: '',
     }
   }
-
-  createTagRequest = () => {
+  async createTag() {
+    const token = await AsyncStorage.getItem('NFCToken');
     fetch(`${GLOBALS.BASE_URL}/tags`, {
       method: 'POST',
       headers: {
+        'Authorization': 'Bearer ' + token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -54,6 +56,10 @@ class CreateTagView extends Component {
       .catch((error) => {
         console.error(error);
       });;
+  }
+
+  createTagRequest = () => {
+    this.createTag();
   }
 
   render() {

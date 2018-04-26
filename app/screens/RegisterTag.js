@@ -97,7 +97,7 @@ class RegisterTagView extends Component {
     this.setState({isWriting: true });
     NfcManager.requestNdefWrite(bytes)
       .then(() => {
-        this.setState({messages: [...this.state.messages, 'Tag ready!', 'Returning to previous page']})
+        this.setState({messages: [...this.state.messages, 'Tag ready!', 'Returning to previous page...']})
         setTimeout(() => {this.props.navigation.navigate('ViewTag')}, 1000)
         console.log('write completed')}
       )

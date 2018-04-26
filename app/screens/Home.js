@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { setGame } from '../actions';
 
 import Button from '../components/Button';
+import LoginState from '../components/LoginState';
 import * as COMMON from '../styles/common';
 
 // Styles
@@ -23,6 +24,10 @@ const buttonPressed = (screen) => {
 
 class HomeView extends Component {
   static navigationOptions = {...navStyle, title: 'NFC Hunt'};
+
+  componentDidMount = () => {
+
+  }
 
   render() {
     const user = this.props.user;
@@ -38,6 +43,7 @@ class HomeView extends Component {
           <Button label='View games' onPress={() => this.props.navigation.navigate('ViewGames')} />
           <Button label='Inspect tag' onPress={() => buttonPressed('InspectTag')} />
         </View>
+        <LoginState/>
       </ImageBackground>
     );
   }

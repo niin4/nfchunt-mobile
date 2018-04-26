@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TextInput,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 
 import GLOBALS from '../Globals';
@@ -26,13 +27,13 @@ const GameItem = (props) => (
 const GameList = (props) => (
   <ScrollView>
     {props.games.map((game) =>
-      <GameItem key={game.g_id} game={game} onClickEv={(game) => props.onClickEv(game)}/>
+      <GameItem key={game.g_id} game={game} onClickEv={(game) => props.onClickEv(game)} />
     )}
   </ScrollView>
 )
 
 class ViewGamesView extends Component {
-  static navigationOptions = {...navStyle, title: 'All games'};
+  static navigationOptions = { ...navStyle, title: 'All games' };
 
   constructor(props) {
     super(props);
@@ -43,12 +44,16 @@ class ViewGamesView extends Component {
   }
   onClickGame = (game) => {
     this.props.onGameChange(game);
-    this.props.navigation.navigate('ViewGame'); 
-   }
+    this.props.navigation.navigate('ViewGame');
+  }
 
-  componentDidMount = () => {
-    fetch(`${GLOBALS.BASE_URL}/games?user=${this.state.user}`)
-      .then((response) => { return response.json() })
+  async getGames() {
+    const token = await AsyncStorage.getItem('NFCToken');
+    fetch(`${GLOBALS.BASE_URL}/games`, {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      }
+    }).then((response) => { return response.json() })
       .then((data) => {
         this.setState({ games: data })
       })
@@ -57,12 +62,16 @@ class ViewGamesView extends Component {
       });;
   }
 
+  componentDidMount = () => {
+    this.getGames();
+  }
+
   render() {
     const games = this.state.games;
     return (
       <View>
         {games.length ?
-          <GameList games={games} onClickEv={(game) => this.onClickGame(game)}/>
+          <GameList games={games} onClickEv={(game) => this.onClickGame(game)} />
           : <Text>No games found {this.state.user}</Text>}
       </View>
     );

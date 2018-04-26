@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage
 } from 'react-native';
 
 import GLOBALS from '../Globals';
@@ -35,16 +36,17 @@ class AddGameView extends Component {
       },
     }
   }
-
-  createGameRequest = () => {
+  
+  async postGame() {
+    const token = await AsyncStorage.getItem('NFCToken');
     fetch(`${GLOBALS.BASE_URL}/games`, {
       method: 'POST',
       headers: {
+        'Authorization': 'Bearer ' + token,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: this.state.user,
         name: this.state.name,
         welcometext: this.state.welcome,
         completedtext: this.state.completed
@@ -58,6 +60,10 @@ class AddGameView extends Component {
       .catch((error) => {
         console.error(error);
       });;
+  }
+
+  createGameRequest = () => {
+    this.postGame();
   }
 
   render() {
