@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { setGame } from '../actions';
 
 import Button from '../components/Button';
+import NavigationBar from '../components/NavigationBar';
 import LoginState from '../components/LoginState';
 import * as COMMON from '../styles/common';
 
@@ -25,12 +26,9 @@ const buttonPressed = (screen) => {
 class HomeView extends Component {
   static navigationOptions = {...navStyle, title: 'NFC Hunt'};
 
-  componentDidMount = () => {
-
-  }
-
   render() {
     const user = this.props.user;
+    const links = [{label:'Tags', dest: 'Tags'},{label:'Game', dest: 'ViewGame'}];
     return (
       <ImageBackground
         source={image}
@@ -41,9 +39,9 @@ class HomeView extends Component {
           </Text>
           <Button label='Create game' onPress={() => this.props.navigation.navigate('AddGame')} />
           <Button label='View games' onPress={() => this.props.navigation.navigate('ViewGames')} />
-          <Button label='Inspect tag' onPress={() => buttonPressed('InspectTag')} />
         </View>
         <LoginState/>
+        <NavigationBar links={links} nav={this.props.navigation}/>
       </ImageBackground>
     );
   }

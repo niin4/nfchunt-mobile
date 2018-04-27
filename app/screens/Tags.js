@@ -14,6 +14,7 @@ import { setTag } from '../actions';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button';
+import NavigationBar from '../components/NavigationBar';
 
 // Styles
 import navStyle from '../styles/navigation';
@@ -62,6 +63,7 @@ class TagsView extends Component {
 
   render() {
     const tags = this.state.tags;
+    const links = [{label:'Game', dest: 'ViewGame'}];
     return (
       <ImageBackground
         source={image}
@@ -79,6 +81,7 @@ class TagsView extends Component {
             />
           </View>
         </View>
+        <NavigationBar links={links} nav={this.props.navigation}/>
       </ImageBackground>
     );
   }

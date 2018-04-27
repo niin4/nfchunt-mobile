@@ -4,7 +4,7 @@ import * as COMMON from './common';
 export default StyleSheet.create({
   background: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   container: {
     flex: 1,
@@ -37,5 +37,21 @@ export default StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
     color: COMMON.COLOR_DARK
+  },
+  modalcontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modal: {
+    padding: 20,
+    backgroundColor: '#fff',
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 5,
+      height: 8
+    },
+    shadowRadius: 9,
+    shadowOpacity: 1.0
   }
 });

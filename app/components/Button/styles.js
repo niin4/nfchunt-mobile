@@ -7,6 +7,7 @@ export default StyleSheet.create({
     backgroundColor: COMMON.COLOR_RED,
     color: '#fff',
     borderRadius: 5,
+    fontSize: 16,
     padding: 15,
     textAlign: 'center',
     marginTop: 5,

@@ -13,6 +13,7 @@ import { setTag } from '../actions';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button';
+import NavigationBar from '../components/NavigationBar';
 
 // Styles
 import navStyle from '../styles/navigation';
@@ -32,6 +33,7 @@ class ViewTagView extends Component {
   
   render() {
     const tag = this.state.tag;
+    const links = [{label:'Tags', dest: 'Tags'},{label:'Game', dest: 'ViewGame'}];
     return (
       <ImageBackground
         source={image}
@@ -43,8 +45,10 @@ class ViewTagView extends Component {
             <Text>{tag.t_hint}</Text>
             <Button label='Edit' />
             <Button label='Register' onPress={() => this.props.navigation.navigate('RegisterTag')}/>
+            <Button label='Back to game' onPress={() => this.props.navigation.navigate('ViewGame')}/>
           </View>
         </View>
+        <NavigationBar links={links} nav={this.props.navigation}/>
       </ImageBackground>
     );
   }

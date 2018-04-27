@@ -15,6 +15,7 @@ import { setTag } from '../actions';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button';
+import NavigationBar from '../components/NavigationBar';
 
 // Styles
 import navStyle from '../styles/navigation';
@@ -39,7 +40,7 @@ class RegisterTagView extends Component {
   }
 
   componentDidMount() {
-    const url = `${GLOBALS.BASE_URL}/tag/${this.state.tagData.t_id}`;
+    const url = `${GLOBALS.BASE_URL}/tag/${this.state.tagData.t_shortcode}`;
     this.setState({urlToWrite: url})
     NfcManager.isSupported()
       .then(supported => {
@@ -70,6 +71,7 @@ class RegisterTagView extends Component {
             {messages.map((msg) => 
               <Text key={msg} style={styles.bold}>{msg}</Text>
             )}
+            <Button label='Cancel' onPress={() => this.props.navigation.navigate('ViewTag')}/>
           </View>
         </View>
       </ImageBackground>

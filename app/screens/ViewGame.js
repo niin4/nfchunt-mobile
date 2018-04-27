@@ -5,13 +5,15 @@ import {
   Text,
   View,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  Modal
 } from 'react-native';
 
 import GLOBALS from '../Globals';
 import { setGame } from '../actions';
 import { connect } from 'react-redux';
 
+import NavigationBar from '../components/NavigationBar';
 import Button from '../components/Button';
 
 // Styles
@@ -26,7 +28,17 @@ class ViewGameView extends Component {
     super(props);
     this.state = {
       game: this.props.game,
+      confirmModal: false
     }
+  }
+
+  setModalVisible = (visible) => {
+    this.setState({ confirmModal: visible });
+  }
+
+  confirmReset = () => {
+    this.setState({ reseted: true });
+    this.setModalVisible(false);
   }
 
   render() {
@@ -43,10 +55,35 @@ class ViewGameView extends Component {
             <Text style={styles.bold}>Text for winner:</Text>
             <Text>{game.g_completedtext}</Text>
             <Button label='Edit' />
-            <Button label='Tags' onPress={() => this.props.navigation.navigate('Tags')}/>
-            <Button label='Start game'/>
+            <Button label='Tags' onPress={() => this.props.navigation.navigate('Tags')} />
+            <Button label='Reset game' onPress={() => { this.setModalVisible(true) }} />
           </View>
         </View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.confirmModal}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+          <View style={styles.modalcontainer}>
+            <View elevation={10} style={styles.modal}>
+              <Text style={styles.bold}>Do you really want to reset {game.g_name}?</Text>
+
+              <Button label='Confirm'
+                onPress={() => {
+                  this.confirmReset();
+                }}>
+              </Button>
+              <Button label='Cancel'
+                onPress={() => {
+                  this.setModalVisible(!this.state.confirmModal);
+                }}>
+              </Button>
+            </View>
+          </View>
+        </Modal>
+        <NavigationBar nav={this.props.navigation}/>
       </ImageBackground>
     );
   }

@@ -13,8 +13,10 @@ import GLOBALS from '../Globals';
 import { setTag } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavigationActions } from 'react-navigation'
 
 import Button from '../components/Button';
+import NavigationBar from '../components/NavigationBar';
 
 // Styles
 import navStyle from '../styles/navigation';
@@ -51,6 +53,7 @@ class CreateTagView extends Component {
       .then((data) => {
         this.props.onTagChange(data);
         this.setState({newtag: data});
+        
         this.props.navigation.navigate('ViewTag');
       })
       .catch((error) => {
@@ -63,6 +66,7 @@ class CreateTagView extends Component {
   }
 
   render() {
+    const links = [{label:'Tags', dest: 'Tags'},{label:'Game', dest: 'ViewGame'}];
     return (
       <ImageBackground
         source={image}
@@ -83,6 +87,7 @@ class CreateTagView extends Component {
             <Button label='Create tag' onPress={this.createTagRequest} />
           </View>
         </View>
+        <NavigationBar links={links} nav={this.props.navigation}/>
       </ImageBackground>
     );
   }
